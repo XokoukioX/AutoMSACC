@@ -11,8 +11,6 @@ import time
 import os, json, string, random
 from selenium.common.exceptions import NoSuchElementException
 
-#########################Test Field##########################
-import requests
 def randomString(length=16):
     base_Str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
     random_str = ''
@@ -39,7 +37,6 @@ print("这是一个自动创建MS账号的小程序 使用selenium执行 请确�
 print("作者:白洲アズサ || Kawakaze")
 print("𝓔𝓽 𝓸𝓷𝓶𝓲𝓪 𝓥𝓪𝓷𝓲𝓽𝓪𝓼")
 print("更新地址:https://github.com/XokoukioX/AutoMSACC")
-email = randomString(10)
 amount = 1
 while True:
     try:
@@ -50,15 +47,17 @@ while True:
         print("请检查你的输入")
         pass
 
-for x in range(5):
-    b = random.randint(0, 3)
-if b == 0:
-    password = randomString(8)
-elif b == 1:
-    password = randomString(5) + "!" + randomString(1)
-else:
-    password = randomString(3) + "A" + randomString(2) + "!" + randomString(1)
-def createTread(email=email):
+
+for x in range(amount):
+    email = randomString(10)
+    for y in range(5):
+        b = random.randint(0, 3)
+    if b == 0:
+        password = randomString(8)
+    elif b == 1:
+        password = randomString(5) + "!" + randomString(1)
+    else:
+        password = randomString(3) + "A" + randomString(2) + "!" + randomString(1)
     driver.get("https://signup.live.com/signup?lcid=1033&wa=wsignin1.0&rpsnv=13&ct=1605407946&rver=7.0.6738.0&wp=MBI_SSL&wreply=https:%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin%3Fru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefp%253Dsignedout-index&lc=1033&id=292666&lw=1&fl=easi2&mkt=en-CN")
     try:
         driver.find_element(By.XPATH,'//*[@id="iSignupAction"]').click()
@@ -85,5 +84,3 @@ def createTread(email=email):
     email=str(email)
     with open("accounts.txt", "a") as f:
         f.write(f"{email + '@outlook.com'}----{password}\n")
-for _ in range(amount):
-    createTread()
