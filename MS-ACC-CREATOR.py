@@ -1,5 +1,7 @@
-
-import driver
+import ctypes
+import warnings
+from selenium import webdriver
+from requests.exceptions import ProxyError
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,15 +13,6 @@ from selenium.common.exceptions import NoSuchElementException
 
 #########################Test Field##########################
 import requests
-api = 'https://api.github.com/repos/XokoukioX/AutoMSACC'
-web_page = 'https://github.com/XokoukioX/AutoMSACC'
-get_info = requests.get(api).json()
-update_time = get_info['updated_at']
-last_update = "2023-08-12T13:31:51Z"
-if last_update < update_time:
-    print("当前可能不是最新版本 建议前往 https://github.com/XokoukioX/AutoMSACC 更新")
-else:
-    print('当前已经是最新版本: ' + update_time)
 def randomString(length=16):
     base_Str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
     random_str = ''
@@ -37,10 +30,15 @@ edge_options.add_experimental_option('excludeSwitches', ['enable-automation', 'e
 driver = webdriver.Edge('msedgedriver.exe', options=edge_options)
 wait = WebDriverWait(driver, 30)
 
+os.system("cls || clear")
+print("微软账户注册工具 - Kawakaze || 白洲アズサ")
+
+
 # 创建Edge浏览器对象
 print("这是一个自动创建MS账号的小程序 使用selenium执行 请确认相关依赖和msedgedriver.exe已经正确设置")
 print("作者:白洲アズサ || Kawakaze")
-print()
+print("𝓔𝓽 𝓸𝓷𝓶𝓲𝓪 𝓥𝓪𝓷𝓲𝓽𝓪𝓼")
+print("更新地址:https://github.com/XokoukioX/AutoMSACC")
 email = randomString(10)
 amount = 1
 while True:
@@ -53,18 +51,15 @@ while True:
         pass
 
 for x in range(5):
-    b = random.randint(0, 2)
+    b = random.randint(0, 3)
 if b == 0:
     password = randomString(8)
 elif b == 1:
     password = randomString(5) + "!" + randomString(1)
 else:
     password = randomString(3) + "A" + randomString(2) + "!" + randomString(1)
-
-
 def createTread(email=email):
     driver.get("https://signup.live.com/signup?lcid=1033&wa=wsignin1.0&rpsnv=13&ct=1605407946&rver=7.0.6738.0&wp=MBI_SSL&wreply=https:%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin%3Fru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefp%253Dsignedout-index&lc=1033&id=292666&lw=1&fl=easi2&mkt=en-CN")
-    time.sleep(3)
     try:
         driver.find_element(By.XPATH,'//*[@id="iSignupAction"]').click()
     except NoSuchElementException:
