@@ -8,3 +8,9 @@ pip install -r reqiurements.txt
 ```
 
 本地测试完美运行
+
+
+
+https://github.com/XokoukioX/AutoMSACC/assets/52972345/c6d6d4ed-ae67-4354-8e2e-373a750e3753
+
+
