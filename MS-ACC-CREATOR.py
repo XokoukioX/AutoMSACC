@@ -25,7 +25,7 @@ edge_options.use_chromium = False
 edge_options.add_experimental_option('useAutomationExtension', False)
 edge_options.add_argument('--inprivate')
 edge_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
-driver = webdriver.Edge('msedgedriver.exe', options=edge_options)
+driver = webdriver.Edge('S:\Programs\AutoXGP\msedgedriver.exe', options=edge_options)
 wait = WebDriverWait(driver, 30)
 
 os.system("cls || clear")
@@ -59,6 +59,7 @@ for x in range(amount):
     else:
         password = randomString(3) + "A" + randomString(2) + "!" + randomString(1)
     driver.get("https://signup.live.com/signup?lcid=1033&wa=wsignin1.0&rpsnv=13&ct=1605407946&rver=7.0.6738.0&wp=MBI_SSL&wreply=https:%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin%3Fru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefp%253Dsignedout-index&lc=1033&id=292666&lw=1&fl=easi2&mkt=en-CN")
+    time.sleep(2)
     try:
         driver.find_element(By.XPATH,'//*[@id="iSignupAction"]').click()
     except NoSuchElementException:
@@ -78,9 +79,13 @@ for x in range(amount):
     WebDriverWait(driver,20000).until(EC.visibility_of_element_located((By.ID,"enforcementFrame"))).click()
     print("请通过人机验证")
     WebDriverWait(driver,2000).until(EC.visibility_of_element_located((By.XPATH,'//*[@id="id__0"]'))).click()
+    try:
+        driver.find_element(By.XPATH, '//*[@id="id__0"]').click()
+    except NoSuchElementException:
+        pass
     WebDriverWait(driver,2000).until(EC.visibility_of_element_located((By.XPATH,'//*[@id="idSIButton9"]'))).click()
     print("Your Account is: " + 'a' + email + '@outlook.com')
     print("Your password is: " + 'b' + password)
     email=str(email)
     with open("accounts.txt", "a") as f:
-        f.write(f"{email + '@outlook.com'}----{password}\n")
+        f.write(f"{'a' + email + '@outlook.com'}----{'b' + password}\n")
