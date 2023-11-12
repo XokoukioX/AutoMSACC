@@ -25,7 +25,7 @@ edge_options.use_chromium = False
 edge_options.add_experimental_option('useAutomationExtension', False)
 edge_options.add_argument('--inprivate')
 edge_options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
-driver = webdriver.Edge('S:\Programs\AutoXGP\msedgedriver.exe', options=edge_options)
+driver = webdriver.Edge('msedgedriver.exe', options=edge_options)
 wait = WebDriverWait(driver, 30)
 
 os.system("cls || clear")
