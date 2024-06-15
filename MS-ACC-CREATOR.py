@@ -98,5 +98,5 @@ for x in range(amount):
         f.write(f"{'a' + email + '@outlook.com'}----{'b' + password}\n")
     else:
         print("未找到相应的检测元素，请自行判断是否注册成功！")
-
+#我很急 我写错COMMIT了，随便写点把他顶掉吧
 
