@@ -1,15 +1,12 @@
-import ctypes
-import warnings
-from selenium import webdriver
-from requests.exceptions import ProxyError
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 import time
-import os, json, string, random
+import os, random
 from selenium.common.exceptions import NoSuchElementException
+
 
 def randomString(length=16):
     base_Str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890'
@@ -31,7 +28,6 @@ wait = WebDriverWait(driver, 30)
 os.system("cls || clear")
 print("微软账户注册工具 - Kawakaze || 白洲アズサ")
 
-
 # 创建Edge浏览器对象
 print("这是一个自动创建MS账号的小程序 使用selenium执行 请确认相关依赖和msedgedriver.exe已经正确设置")
 print("作者:白洲アズサ || Kawakaze")
@@ -47,7 +43,6 @@ while True:
         print("请检查你的输入")
         pass
 
-
 for x in range(amount):
     email = randomString(10)
     for y in range(5):
@@ -58,34 +53,50 @@ for x in range(amount):
         password = randomString(5) + "!" + randomString(1)
     else:
         password = randomString(3) + "A" + randomString(2) + "!" + randomString(1)
-    driver.get("https://signup.live.com/signup?lcid=1033&wa=wsignin1.0&rpsnv=13&ct=1605407946&rver=7.0.6738.0&wp=MBI_SSL&wreply=https:%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin%3Fru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefp%253Dsignedout-index&lc=1033&id=292666&lw=1&fl=easi2&mkt=en-CN")
+    driver.get(
+        "https://signup.live.com/signup?lcid=1033&wa=wsignin1.0&rpsnv=13&ct=1605407946&rver=7.0.6738.0&wp=MBI_SSL&wreply=https:%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin%3Fru%3Dhttps%253A%252F%252Faccount.microsoft.com%252F%253Frefp%253Dsignedout-index&lc=1033&id=292666&lw=1&fl=easi2&mkt=en-CN")
+    print("##################################")
+    print("Your Account is: " + 'a' + email + '@outlook.com')
+    print("Your password is: " + 'b' + password)
+    print("##################################")
     time.sleep(2)
     try:
-        driver.find_element(By.XPATH,'//*[@id="iSignupAction"]').click()
+        driver.find_element(By.XPATH, '//*[@id="iSignupAction"]').click()
     except NoSuchElementException:
         pass
-    driver.find_element(By.XPATH,'//*[@id="MemberName"]').send_keys('a' + email + '@outlook.com')
+    driver.find_element(By.XPATH, '//*[@id="MemberName"]').send_keys('a' + email + '@outlook.com')
     time.sleep(1)
-    driver.find_element(By.XPATH,'//*[@id="iSignupAction"]').click()
-    WebDriverWait(driver,200).until(EC.visibility_of_element_located((By.XPATH,'//*[@id="PasswordInput"]'))).click()
-    driver.find_element(By.XPATH,'//*[@id="PasswordInput"]').send_keys('b' + password)
-    driver.find_element(By.XPATH,'//*[@id="iSignupAction"]').click()
-    WebDriverWait(driver,200).until((EC.visibility_of_element_located((By.ID,"Country")))).click()
+    driver.find_element(By.XPATH, '//*[@id="iSignupAction"]').click()
+    WebDriverWait(driver, 200).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="PasswordInput"]'))).click()
+    driver.find_element(By.XPATH, '//*[@id="PasswordInput"]').send_keys('b' + password)
+    driver.find_element(By.XPATH, '//*[@id="iSignupAction"]').click()
+    WebDriverWait(driver, 200).until((EC.visibility_of_element_located((By.ID, "Country")))).click()
     Select(driver.find_element(By.ID, "Country")).select_by_value("US")
     Select(driver.find_element(By.ID, "BirthMonth")).select_by_value("1")
     Select(driver.find_element(By.ID, "BirthDay")).select_by_value("1")
     driver.find_element(By.ID, "BirthYear").send_keys("1984")
     driver.find_element(By.ID, "iSignupAction").click()
-    WebDriverWait(driver,20000).until(EC.visibility_of_element_located((By.ID,"enforcementFrame"))).click()
+    WebDriverWait(driver, 20000).until(EC.visibility_of_element_located((By.ID, "enforcementFrame"))).click()
     print("请通过人机验证")
-    WebDriverWait(driver,2000).until(EC.visibility_of_element_located((By.XPATH,'//*[@id="id__0"]'))).click()
+    WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="id__0"]'))).click()
     try:
         driver.find_element(By.XPATH, '//*[@id="id__0"]').click()
     except NoSuchElementException:
         pass
-    WebDriverWait(driver,2000).until(EC.visibility_of_element_located((By.XPATH,'//*[@id="idSIButton9"]'))).click()
-    print("Your Account is: " + 'a' + email + '@outlook.com')
-    print("Your password is: " + 'b' + password)
-    email=str(email)
-    with open("accounts.txt", "a") as f:
+    #询问是否保持登录
+    WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH,
+                                                                        '/html/body/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div[2]/div[2]/div/form/div[3]/div[2]/div/div[2]/button'))).click()
+
+    #太久了 不知道这干嘛的，删了 :D
+    #WebDriverWait(driver,2000).until(EC.visibility_of_element_located((By.XPATH,'//*[@id="idSIButton9"]'))).click()
+
+    #检查是否到达账户页面
+    time.sleep(4)
+    if driver.find_element(By.XPATH,"/html/body/div/div[3]/div[1]/div[1]/div/div/div/div[2]/div/div/main/div[3]/div[1]/div/div[2]/div/div[1]/div[1]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div[3]/div/button/span/span/span").is_displayed():
+        email = str(email)
+        with open("accounts.txt", "a") as f:
         f.write(f"{'a' + email + '@outlook.com'}----{'b' + password}\n")
+    else:
+        print("未找到相应的检测元素，请自行判断是否注册成功！")
+
+
